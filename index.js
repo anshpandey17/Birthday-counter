@@ -4,7 +4,7 @@ const giftbox = document.getElementById('merrywrap');
 const canvasC = document.getElementById('c');
 
 const config = {
-  birthdate: 'Jan 14, 2026',
+  birthdate: 'Jan 14, 2003',
   name: 'VANSHIKA'
 };
 
@@ -26,7 +26,18 @@ const second = 1000,
   hour = minute * 60,
   day = hour * 24;
 
-let countDown = new Date(`${config.birthdate} 00:00:00`).getTime();
+const today = new Date();
+let targetYear = today.getFullYear();
+
+// Create birthday date for THIS year
+let countDown = new Date(`Jan 14 ${targetYear} 00:00:00 GMT+0530`).getTime();
+
+// If birthday already passed this year → use next year
+if (countDown < today.getTime()) {
+  targetYear += 1;
+  countDown = new Date(`Jan 14 ${targetYear} 00:00:00 GMT+0530`).getTime();
+}
+
 x = setInterval(function() {
   let now = new Date().getTime(),
     distance = countDown - now;
